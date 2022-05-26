@@ -1,0 +1,34 @@
+@mixin flex($justfiy, $align) {
+    display: flex;
+    justify-content: $justfiy;
+    align-items: $align;
+}
+@mixin dimensions($height, $width) {
+    height: $height;
+    width: $width;
+}
+
+.main_wrapper {
+    @include dimensions(100vh, 100%);
+}
+
+.main_content_wrapper {
+    @include dimensions(100%, 100%);
+    @include flex(space-around, center);
+    background: gold;
+}
+.trending_ {
+    &tech_news_wrapper {
+        @include dimensions(85%, 30%);
+        background: rgb(102, 40, 40);
+    }
+
+    &car_news_wrapper {
+        @include dimensions(100%, 45%);
+        background: rgb(11, 205, 57);
+    }
+    &bus_news_wrapper {
+        @include dimensions(100%, 20%);
+        background: rgb(0, 0, 0);
+    }
+}

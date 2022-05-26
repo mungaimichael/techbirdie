@@ -1,0 +1,18 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: "DejaVu Sans";
+}
+
+a {
+  font-weight: 900;
+  font-size: 1.2rem;
+  color: white;
+}

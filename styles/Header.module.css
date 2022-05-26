@@ -1,0 +1,60 @@
+.main_wrapper {
+  height: 15vh;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: Montserrat;
+  font-weight: 900;
+  font-size: clamp(1rem, 2rem, 3.2rem);
+  color: rgba(255, 0, 0, 0.473);
+  padding: 0 2rem;
+}
+
+.navbar {
+  width: 25%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+}
+.login_button {
+  width: 140px;
+  padding: 0.4rem;
+  height: auto;
+  font-size: clamp(1rem, 1.4rem, 3.2rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  font-family: Montserrat;
+  border: 0;
+  background: rgba(255, 0, 0, 0.473);
+  color: white;
+}
+
+.login_button:hover {
+  cursor: pointer;
+  color: rgba(255, 0, 0, 0.473);
+  background: white;
+}
+
+.register_button {
+  width: 140px;
+  padding: 0.4rem;
+  font-size: clamp(1rem, 1.4rem, 3.2rem);
+
+  font-weight: 900;
+  text-transform: uppercase;
+  font-family: Montserrat;
+  border: 0;
+  background: rgba(255, 0, 0, 0.473);
+  color: white;
+}
+
+.register_button:hover {
+  cursor: pointer;
+  background: black;
+}
