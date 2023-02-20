@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+require("dotenv").config();
+
 const connectDb = async () => {
   try {
     // create a connection to the database
@@ -7,7 +9,7 @@ const connectDb = async () => {
     if (conn) {
       console.log(`Connected to MongoDB: ${conn.connection.host}`);
     } else {
-      console.log("not connected to MongoDB");
+      console.log("Error connecting to MongoDB");
     }
   } catch (err) {
     console.log(err);

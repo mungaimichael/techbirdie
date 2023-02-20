@@ -1,7 +1,6 @@
-import bcrypt from "bcryptjs/dist/bcrypt";
 import connectDb from "../controllers/db.js";
-import userModel from "../models/users.model.js";
-
+import bcrypt from "bcryptjs/dist/bcrypt";
+import userModel from "../models/users.model";
 export default async function handler(req, res) {
   try {
     // await db connection
@@ -17,7 +16,7 @@ export default async function handler(req, res) {
 
       // check if user already exists
       if (user) {
-        res.status(400).send("User already exists");
+        res.status(400).json("User already exists");
       } else {
         // hash password
         const salt = await bcrypt.genSalt(10);
@@ -30,13 +29,17 @@ export default async function handler(req, res) {
           password: hashedPassword,
         });
         if (!newUser) {
-          res.status(405).send("error creating user");
+          res.status(405).json("error creating user");
         }
-        // send user
-        res.status(200).send({ email: newUser.email, id: newUser._id });
+        // send user as json
+        res.status(200).json({
+          email: newUser.email,
+          id: newUser._id,
+          msg: "User successflly created!",
+        });
       }
     }
   } catch (err) {
-    res.send(err);
+    res.json(err);
   }
 }

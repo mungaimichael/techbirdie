@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs/dist/bcrypt";
 import jwt from "jsonwebtoken";
-import connectDb from "../controllers/db";
-import userModel from "../models/users.model";
+// import connectDb from "../controllers/db";
+import userModel from "../models/users.model.js";
 
 // function to generate JWT token
 const genToken = async ({ _id, email }) => {
@@ -15,7 +15,7 @@ const genToken = async ({ _id, email }) => {
 const handler = async (req, res) => {
   try {
     // await db connection
-    await connectDb();
+    // await connectDb();
 
     // get req method
     const { method } = req;

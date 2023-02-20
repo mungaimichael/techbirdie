@@ -2,7 +2,8 @@ import connectDb from "./controllers/db";
 
 const handler = async (req, res) => {
   try {
-    res.status(200).send("Connected to MongoDB");
+    connectDb();
+    res.status(200).send("This is the api root path");
   } catch (err) {
     res.send(err);
   }

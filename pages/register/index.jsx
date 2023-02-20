@@ -16,6 +16,24 @@ const Register = () => {
         }
     })
 
+    // const sendToDatabase = (e) => {
+    //     e.preventDefault();
+    //     console.log(form.values);
+
+    //     fetch('/api/register', {
+    //         method: "POST",
+    //         headers: {
+    //             'Content-Type': 'Application/json'
+    //         },
+    //         body: JSON.stringify(form.values)
+    //     })
+    //         .then(res => res.json())
+    //         .then(res => console.log(res))
+    //         .catch(err => console.log(err.message))
+    // }
+
+
+
     // import useRegister hook
     const { mutate } = useRegister()
     return (
@@ -36,7 +54,8 @@ const Register = () => {
                         className={styles.form}
                         onSubmit={form.onSubmit((values) => {
                             mutate(values)
-                        })}   >
+                        })}
+                    >
                         <div className={styles.input_wrappers}>
                             <TextInput
                                 size='lg'
@@ -93,7 +112,7 @@ const Register = () => {
                                 {...form.getInputProps("confirmPassword")}
                             />
                         </div>
-                        <button className={styles.register_button}  >
+                        <button className={styles.register_button}>
                             sign up
                         </button>
                         <div className={styles.register_link}>
