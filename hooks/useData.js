@@ -1,10 +1,10 @@
 import fetchNews from "../services/fetchNews.api";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 const useData = () => {
-  const { isLoading, isError, data } = useQuery("news", fetchNews);
+  const { data } = useQuery(["tech-news"], fetchNews);
 
-  return { isLoading, isError, data };
+  return { data };
 };
 
 export default useData;

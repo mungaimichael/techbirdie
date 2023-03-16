@@ -1,5 +1,5 @@
 import "../styles/globals.scss";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 function MyApp({ Component, pageProps }) {
   // Create a client

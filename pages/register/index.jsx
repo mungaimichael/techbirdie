@@ -1,18 +1,20 @@
-import { TextInput } from '@mantine/core'
+import { TextInput, Input } from '@mantine/core'
 import { useForm } from '@mantine/hooks'
 import Link from 'next/link'
-import { useEffect } from 'react'
 import useRegister from '../../hooks/useRegister'
 import styles from "../../styles/Register.module.css"
+
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { useState } from 'react'
+
+
 const Register = () => {
     const form = useForm({
         initialValues: {
             firstname: "",
             lastname: "",
             email: "",
-            confirmemail: "",
             password: "",
-            confirmPassword: "",
         }
     })
 
@@ -34,7 +36,15 @@ const Register = () => {
 
 
 
+
+
     // import useRegister hook
+
+    const [showPassword, setShowPassword] = useState(null);
+    const handleShowPass = () => {
+        setShowPassword(prev => !prev);
+        console.log(showPassword)
+    }
     const { mutate } = useRegister()
     return (
         <div className={styles.container}>
@@ -54,20 +64,23 @@ const Register = () => {
                         className={styles.form}
                         onSubmit={form.onSubmit((values) => {
                             mutate(values)
+
                         })}
                     >
                         <div className={styles.input_wrappers}>
+
                             <TextInput
                                 size='lg'
-                                placeholder='enter first name'
+                                placeholder=' first name'
                                 sx={{ width: "400px" }}
                                 id="firstname"
                                 {...form.getInputProps("firstname")}
                             />
-
+                        </div>
+                        <div className={styles.input_wrappers} >
                             <TextInput
                                 size='lg'
-                                placeholder='enter last name'
+                                placeholder=' last name'
                                 sx={{ width: "400px" }}
                                 id="lastname"
                                 {...form.getInputProps("lastname")}
@@ -77,41 +90,36 @@ const Register = () => {
                             <TextInput
                                 size='lg'
                                 type='email'
-                                placeholder='enter email'
+                                placeholder=' email'
                                 sx={{ width: "400px" }}
                                 id="email"
                                 {...form.getInputProps("email")}
 
                             />
 
-                            <TextInput
-                                size='lg'
-                                type='email'
-                                placeholder='confirm email'
-                                sx={{ width: "400px" }}
-                                {...form.getInputProps("confirmemail")}
-                                id="confirmemail"
-                            />
                         </div>
                         <div className={styles.input_wrappers}>
-                            <TextInput
+                            <Input
+                                rightSection={
+                                    showPassword ?
+                                        <FaEye onClick={handleShowPass} />
+                                        : <FaEyeSlash onClick={handleShowPass} />
+                                }
                                 size='lg'
-                                placeholder='enter password'
+                                placeholder=' password'
                                 sx={{ width: "400px" }}
-                                type="password"
+                                type={
+                                    showPassword ? "text" : "password"
+                                }
                                 id='password'
                                 {...form.getInputProps("password")}
 
                             />
-                            <TextInput
-                                size='lg'
-                                placeholder='confirm password'
-                                sx={{ width: "400px" }}
-                                type="password"
-                                id='confirmPassword'
-                                {...form.getInputProps("confirmPassword")}
-                            />
+                            {showPassword}
                         </div>
+                        <div className={styles.input_wrappers}>
+                        </div>
+
                         <button className={styles.register_button}>
                             sign up
                         </button>
@@ -119,9 +127,7 @@ const Register = () => {
                             already have an account ?
                             <Link href="/login" >Login Here</Link>
                         </div>
-                        <h4 className={styles.home_linl}>
-                            <Link href="/" >Home</Link>
-                        </h4>
+
                     </form>
                 </div>
             </div >
@@ -131,3 +137,5 @@ const Register = () => {
 }
 
 export default Register
+
+

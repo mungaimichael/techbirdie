@@ -1,18 +1,35 @@
-import React from 'react'
-import Header from '../../Components/Header'
-import styles from "../../styles/LoggedInHome.module.scss"
+import { Container, Group, Text, Burger } from '@mantine/core'
+import React, { useEffect, useState } from 'react'
+import useData from '../../hooks/useData'
+import fetchNews from '../../services/fetchNews.api'
 
 const Home = () => {
-    return (
-        <div className={styles.main_wrapper} >
-            <Header />
-            <div className={styles.main_content_wrapper}>
+    // const { data } = useData()
+    // useEffect(() => {
+    //     console.log(data)
+    // }, [data])
 
-                <div className={styles.trending_tech_news_wrapper} ></div>
-                <div className={styles.trending_car_news_wrapper} ></div>
-                <div className={styles.trending_bus_news_wrapper} > </div>
-            </div>
-        </div>
+    return (
+        <>
+            <Container>
+                <Group
+                    position='center'
+                >
+                    <Text
+                        size="xl"
+                        weight={"900"}
+                        style={{ fontFamily: 'Poppins', fontSize: "2rem" }}
+                    >
+                        Tech Birdie
+                    </Text>
+                    <Burger />
+                </Group>
+            </Container>
+
+            <Container>
+                THiis si the main content
+            </Container>
+        </>
     )
 }
 

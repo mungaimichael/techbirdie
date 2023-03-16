@@ -1,25 +1,38 @@
 import { TextInput } from '@mantine/core'
 import { useForm } from '@mantine/hooks'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import useLogin from '../../hooks/useLogin'
+import loginUser from '../../services/login.api'
 import styles from "../../styles/Login.module.css"
-const login = () => {
+const Login = () => {
 
-  // import useLogin hook 
-  const { data, mutate } = useLogin()
+  const router = useRouter();
+
+  // import useLogin hook
+
+  const token = localStorage.getItem("token");
 
   const form = useForm({
     initialValues: {
       email: "",
-      password: ""
+      password: "",
     }
+
   })
+
+
   useEffect(() => {
-    if (data) {
-      console.log(data.data)
+    // check for token in local storage 
+    if (token) {
+      router.push("/home", undefined, { shallow: true })
     }
-  }, [data]);
+    return () => {
+      localStorage.removeItem("token")
+    }
+  }, [token]);
+
   return (
     <div className={styles.main_wrapper} >
       <div className={styles.form_wrapper}>
@@ -29,9 +42,10 @@ const login = () => {
             <h2 className={styles.form_heading}>Login</h2>
             <span className={styles.form_subheading}>login to your account</span>
           </div>
-          <form className={styles.form} onSubmit={form.onSubmit(values => {
-            mutate(values)
-          })} >
+          <form className={styles.form}
+            onSubmit={form.onSubmit(values => {
+              loginUser(values)
+            })} >
             <div className={styles.input_wrappers}>
               <TextInput
                 placeholder='email'
@@ -43,6 +57,7 @@ const login = () => {
             <div className={styles.input_wrappers}>
               <TextInput
                 placeholder='password'
+                type='password'
                 id='password'
                 size='lg'
                 style={{ width: "500px" }}
@@ -50,7 +65,7 @@ const login = () => {
               />
             </div>
             <button className={styles.login_button} >login</button>
-            <h4 className={styles.register_link}>Don't have an account ? <span className={styles.anchor}>
+            <h4 className={styles.register_link}> have an account ? <span className={styles.anchor}>
               <Link href="/register">register</Link>
             </span>
             </h4>
@@ -64,4 +79,4 @@ const login = () => {
   )
 }
 
-export default login
+export default Login
