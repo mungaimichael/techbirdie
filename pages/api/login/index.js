@@ -24,6 +24,8 @@ const handler = async (req, res) => {
         res.send({ error: "Please provide email and password" });
       } else {
         const user = await userModel.findOne({ email });
+        // const user = await userModel.findOne({ email }, { maxTimeMS: 30000 });
+
         // if user is not in the database
         if (!user) {
           res

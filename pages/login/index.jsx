@@ -3,7 +3,6 @@ import { useForm } from '@mantine/hooks'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-import useLogin from '../../hooks/useLogin'
 import loginUser from '../../services/login.api'
 import styles from "../../styles/Login.module.css"
 const Login = () => {
@@ -11,9 +10,11 @@ const Login = () => {
   const router = useRouter();
 
   // import useLogin hook
+  const token = '';
 
-  const token = localStorage.getItem("token");
-
+  if (typeof window !== 'undefined') {
+    token = localStorage.getItem('token');
+  }
   const form = useForm({
     initialValues: {
       email: "",
