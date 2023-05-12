@@ -2,19 +2,21 @@ import { TextInput } from '@mantine/core'
 import { useForm } from '@mantine/hooks'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import loginUser from '../../services/login.api'
 import styles from "../../styles/Login.module.css"
 const Login = () => {
 
-  const router = useRouter();
+  const [token, setToken] = useState(null)
 
-  // import useLogin hook
-  const token = '';
+  // const router = useRouter();
 
-  if (typeof window !== 'undefined') {
-    token = localStorage.getItem('token');
-  }
+  // // import useLogin hook
+  // const token = '';
+
+  // if (typeof window !== 'undefined') {
+  //   token = localStorage.getItem('token');
+  // }
   const form = useForm({
     initialValues: {
       email: "",
@@ -24,16 +26,19 @@ const Login = () => {
   })
 
 
-  useEffect(() => {
-    // check for token in local storage 
-    if (token) {
-      router.push("/home", undefined, { shallow: true })
-    }
-    return () => {
-      localStorage.removeItem("token")
-    }
-  }, [token]);
+  // useEffect(() => {
+  //   // check for token in local storage 
+  //   if (token) {
+  //     router.push("/home", undefined, { shallow: true })
+  //   }
+  //   return () => {
+  //     localStorage.removeItem("token")
+  //   }
+  // }, [token]);
 
+  useEffect(() => {
+    console.log(token);
+  }, [token])
   return (
     <div className={styles.main_wrapper} >
       <div className={styles.form_wrapper}>

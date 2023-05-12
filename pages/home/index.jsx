@@ -10,6 +10,9 @@ const Home = () => {
 
     const [trending, setTrending] = useState(null);
 
+    const [mainStory, setMainStory] = useState(null);
+
+
     // get data
     const fetchNews = async (query = "technology") => {
         const { data: { results } } = await axios.get(
@@ -34,6 +37,11 @@ const Home = () => {
                 const trending = await fetchNews("AI");
                 setTrending(trending);
                 setNews(data);
+                const randomIndex = Math.floor(Math.random() * data.length);
+                const randomElement = data[randomIndex];
+
+                // Update the mainStory state with the random element
+                setMainStory(randomElement);
 
             } catch (error) {
                 console.log(error);
@@ -44,19 +52,6 @@ const Home = () => {
 
     return (
         <Container size="xl" >
-            <Group
-                position='center'
-            >
-                <Text
-                    size="xl"
-                    weight={"900"}
-                    style={{ fontFamily: 'Poppins', fontSize: "2rem" }}
-                    onClick={() => { console.log(news) }}
-                >
-                    Tech Birdie
-                </Text>
-                <Burger />
-            </Group>
             <Container size="xl" >
                 <Grid gutter={"lg"} >
                     <Grid.Col span={3}  >
@@ -77,16 +72,22 @@ const Home = () => {
                     </Grid.Col  >
                     <Grid.Col span={7}   >
                         <Paper>
+                            <Image
+                                src={news && mainStory.image_url}
+                                alt={mainStory && mainStory.image_url ? "main story image" : "image not available"}
+                                onClick={() => { console.log(mainStory) }}
+                                sx={{ marginTop: "2rem" }}
+                            />
                             <Text
                                 size="lg"
                                 weight={"900"}
                                 style={{ fontFamily: 'Poppins', fontSize: "1.5rem" }}
-                                onClick={() => { console.log(news[0]) }}
                             >
-                                {news && news[1].title}
+                                {news && mainStory.title}
                             </Text>
-                            <Text>{news && news[0].description}</Text>
-                            <Image url={news && news[0].image_url} alt="main story image" />
+                            <Text
+                            >{news && mainStory.description}</Text>
+
                         </Paper>
                     </Grid.Col>
                     <Grid.Col span={2}  >
@@ -107,7 +108,7 @@ const Home = () => {
                     </Grid.Col  >
                 </Grid>
             </Container>
-        </Container>
+        </Container >
     )
 }
 

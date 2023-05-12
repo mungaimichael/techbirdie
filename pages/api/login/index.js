@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs/dist/bcrypt";
 import jwt from "jsonwebtoken";
 import userModel from "../models/users.model.js";
+import cookieParser from "cookie-parser";
 
 // function to generate JWT token
 const genToken = async ({ _id, email }) => {
@@ -24,7 +25,6 @@ const handler = async (req, res) => {
         res.send({ error: "Please provide email and password" });
       } else {
         const user = await userModel.findOne({ email });
-        // const user = await userModel.findOne({ email }, { maxTimeMS: 30000 });
 
         // if user is not in the database
         if (!user) {
@@ -35,11 +35,13 @@ const handler = async (req, res) => {
         //   // check if password is correct
         else {
           const isMatch = await bcrypt.compare(password, user.password);
+
           if (!isMatch) {
             res.send("Incorrect password");
           }
           // if password is correct
           else {
+            res.cookie("token", genToken(user));
             res.status(201).send({
               email: user.email,
               id: user._id,
